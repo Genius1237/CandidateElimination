@@ -3,7 +3,6 @@
 /*
 	Precondition: length > 0
 */
-using std::cout;
 Hypothesis::Hypothesis(int length) {
 	els = new std::string [length];
 	this -> length = length;
