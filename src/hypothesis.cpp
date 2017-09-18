@@ -66,9 +66,10 @@ bool operator <(const Hypothesis& a, const Hypothesis& b) {
 }
 
 std::ostream& operator <<(std::ostream& out, const Hypothesis& h) {
+	out << "<";
 	for (int i = 0; i < h.length - 1; i++) {
-		out << h.els[i] << " ";
+		out << h.els[i] << ",";
 	}
-	out << h.els[h.length - 1];
+	out << h.els[h.length - 1] << ">";
 	return out;
 }

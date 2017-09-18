@@ -5,8 +5,8 @@
 #include <iostream>
 
 // static so that the variables are local to the compilation unit
-static const std::string match_all = "\n";
-static const std::string match_none = "\0";
+static const std::string match_all = "?";
+static const std::string match_none = "#";
 
 class Hypothesis {
 public:
