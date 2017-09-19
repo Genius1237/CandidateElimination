@@ -28,6 +28,7 @@ public:
 	bool operator =(std::vector<std::string> els);
 	
 	friend bool operator >=(const Hypothesis& a, const Hypothesis& b);
+	friend bool operator ==(const Hypothesis& a, const Hypothesis& b);
 	friend bool operator >(const Hypothesis& a, const Hypothesis& b);
 	friend bool operator <=(const Hypothesis& a, const Hypothesis& b);
 	friend bool operator <(const Hypothesis& a, const Hypothesis& b);

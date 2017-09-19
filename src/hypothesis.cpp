@@ -113,6 +113,10 @@ bool operator <(const Hypothesis& a, const Hypothesis& b) {
 	return (a <= b && !(a >= b));
 }
 
+bool operator ==(const Hypothesis& a, const Hypothesis& b) {
+	return (a <= b && (a >= b));
+}
+
 std::ostream& operator <<(std::ostream& out, const Hypothesis& h) {
 	out << "<";
 	for (int i = 0; i < h.length - 1; i++) {
@@ -121,6 +125,8 @@ std::ostream& operator <<(std::ostream& out, const Hypothesis& h) {
 	out << h.els[h.length - 1] << ">";
 	return out;
 }
+
+
 
 std::vector<std::vector<std::string>> readData(int n=18,std::string fileloc="../data/zoo.data"){
 	//std::string fileloc="../data/zoo.data";
