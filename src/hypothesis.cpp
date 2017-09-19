@@ -1,4 +1,6 @@
 #include "hypothesis.h"
+#include <fstream>
+#include <sstream>
 
 /*
 	Precondition: length > 0
@@ -118,4 +120,38 @@ std::ostream& operator <<(std::ostream& out, const Hypothesis& h) {
 	}
 	out << h.els[h.length - 1] << ">";
 	return out;
+}
+
+std::vector<std::vector<std::string>> readData(int n=18,std::string fileloc="../data/zoo.data"){
+	//std::string fileloc="../data/zoo.data";
+	std::ifstream fin(fileloc,std::ios::in);
+	std::vector<std::vector<std::string>> data;
+	while(!fin.eof()){
+		std::string s;
+		std::vector<std::string> att;
+
+		fin>>s;
+
+		std::stringstream str(s);
+		
+		for(int i=0;i<n;i++){
+			std::string temp;
+			std::getline(str,temp,',');
+			att.push_back(temp);
+		}
+
+		/*
+		for(auto i=boollist.begin();i!=boollist.end();i++){
+			att[*i]=(att[*i]=="0"?"false":"true");
+		}
+		*/
+		/*
+		for(auto i=att.begin();i!=att.end();i++){
+			std::cout<<*i<<",";
+		}
+		std::cout<<std::endl;
+		*/
+		data.push_back(att);
+	}
+	return data;
 }
