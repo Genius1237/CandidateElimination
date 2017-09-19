@@ -2,49 +2,36 @@
 #include <fstream>
 #include <sstream>
 
-/*
-	Precondition: length > 0
-*/
-Hypothesis::Hypothesis(int length) {
-	els = new std::string [length];
-	this -> length = length;
+Hypothesis::Hypothesis() {
+	;
 }
 
 Hypothesis::Hypothesis(int length, std::string initialize) {
-	els = new std::string [length];
-	this -> length = length;
-	for (int i = 0; i < length; i++) {
-		els[i] = initialize;
-	}	
+	els = std::vector<std::string> (length, initialize);
 }
 
 Hypothesis::Hypothesis(const Hypothesis& h) {
-	delete [] els;
-	els = new std::string [h.length];
-	length = h.length;
-	for (int i = 0; i < h.length; i++) {
-		els[i] = h.els[i];
-	}
+	els = h.els;
 }
 
 Hypothesis::~Hypothesis() {
-	delete [] els;
+	;
 }
 
 bool Hypothesis::isSatisfy(std::initializer_list<std::string> els) {
-	if (length != els.size()) {
+	if ((this -> els).size() != els.size()) {
 		return false;
 	}
-	Hypothesis h(length);
-	h = els;
+	Hypothesis h;
+	h = std::vector<std::string> (els);
 	return ((*this) >= h);
 }
 
 bool Hypothesis::isSatisfy(std::vector<std::string> els) {
-	if (length != els.size()) {
+	if ((this -> els).size() != els.size()) {
 		return false;
 	}
-	Hypothesis h(length);
+	Hypothesis h;
 	h = els;
 	return ((*this) >= h);
 }
@@ -56,35 +43,21 @@ std::string& Hypothesis::operator [](int index) {
 	return els[index];
 }
 
-bool Hypothesis::operator =(std::initializer_list<std::string> els) {
-	if (length != els.size()) {
-		return false;
-	}
-	int i = 0;
-	for (auto el: els) {
-		(this -> els)[i] = el;
-		++i;
-	}
-	return true;
+Hypothesis Hypothesis::operator =(std::initializer_list<std::string> els) {
+	this -> els = std::vector<std::string> (els);
+	return (*this);
 }
 
-bool Hypothesis::operator =(std::vector<std::string> els) {
-	if (length != els.size()) {
-		return false;
-	}
-	int i = 0;
-	for (auto el: els) {
-		(this -> els)[i] = el;
-		++i;
-	}
-	return true;
+Hypothesis Hypothesis::operator =(std::vector<std::string> els) {
+	this -> els = els;
+	return (*this);
 }
 
 /*
 	Precondition: Length of both hypotheses are equal
 */
 bool operator >=(const Hypothesis& a, const Hypothesis& b) {
-	for (int i = 0; i < a.length; i++) {
+	for (int i = 0; i < a.els.size(); i++) {
 		if ((a.els[i] != match_all && a.els[i] != match_none &&
 			a.els[i] != b.els[i] && b.els[i] != match_none) || 
 			(a.els[i] == match_none && b.els[i] != match_none)) {
@@ -99,7 +72,7 @@ bool operator >(const Hypothesis& a, const Hypothesis& b) {
 }
 
 bool operator <=(const Hypothesis& a, const Hypothesis& b) {
-	for (int i = 0; i < a.length; i++) {
+	for (int i = 0; i < a.els.size(); i++) {
 		if ((a.els[i] != match_all && a.els[i] != match_none &&
 			a.els[i] != b.els[i] && b.els[i] != match_all) || 
 			(a.els[i] == match_all && b.els[i] != match_all)) {
@@ -119,10 +92,10 @@ bool operator ==(const Hypothesis& a, const Hypothesis& b) {
 
 std::ostream& operator <<(std::ostream& out, const Hypothesis& h) {
 	out << "<";
-	for (int i = 0; i < h.length - 1; i++) {
+	for (int i = 0; i < h.els.size() - 1; i++) {
 		out << h.els[i] << ",";
 	}
-	out << h.els[h.length - 1] << ">";
+	out << h.els[h.els.size() - 1] << ">";
 	return out;
 }
 
