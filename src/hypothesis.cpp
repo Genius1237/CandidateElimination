@@ -8,8 +8,43 @@ Hypothesis::Hypothesis(int length) {
 	this -> length = length;
 }
 
+Hypothesis::Hypothesis(int length, std::string initialize) {
+	els = new std::string [length];
+	this -> length = length;
+	for (int i = 0; i < length; i++) {
+		els[i] = initialize;
+	}	
+}
+
+Hypothesis::Hypothesis(const Hypothesis& h) {
+	delete [] els;
+	els = new std::string [h.length];
+	length = h.length;
+	for (int i = 0; i < h.length; i++) {
+		els[i] = h.els[i];
+	}
+}
+
 Hypothesis::~Hypothesis() {
 	delete [] els;
+}
+
+bool Hypothesis::isSatisfy(std::initializer_list<std::string> els) {
+	if (length != els.size()) {
+		return false;
+	}
+	Hypothesis h(length);
+	h = els;
+	return ((*this) >= h);
+}
+
+bool Hypothesis::isSatisfy(std::vector<std::string> els) {
+	if (length != els.size()) {
+		return false;
+	}
+	Hypothesis h(length);
+	h = els;
+	return ((*this) >= h);
 }
 
 /*
@@ -20,6 +55,18 @@ std::string& Hypothesis::operator [](int index) {
 }
 
 bool Hypothesis::operator =(std::initializer_list<std::string> els) {
+	if (length != els.size()) {
+		return false;
+	}
+	int i = 0;
+	for (auto el: els) {
+		(this -> els)[i] = el;
+		++i;
+	}
+	return true;
+}
+
+bool Hypothesis::operator =(std::vector<std::string> els) {
 	if (length != els.size()) {
 		return false;
 	}
