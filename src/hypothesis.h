@@ -10,6 +10,10 @@ static const std::string match_all = "?";
 static const std::string match_none = "#";
 
 class Hypothesis {
+private:
+	std::string *els;
+	int length;
+
 public:
 	Hypothesis(int length);
 	Hypothesis(int length, std::string initialize);
@@ -30,9 +34,6 @@ public:
 	friend std::ostream& operator <<(std::ostream& out, const Hypothesis& h);
 
 
-private:
-	std::string *els;
-	int length;
 };
 
 std::vector<std::vector<std::string>> readData(int n,std::string fileloc);
