@@ -31,6 +31,8 @@ public:
 	  Usage:
 	  h1 = h2;
 	*/
+	Hypothesis(int length, std::vector<std::string> initialize);
+
 	Hypothesis(const Hypothesis& h);
 	
 	/*
@@ -87,6 +89,6 @@ public:
 	friend std::ostream& operator <<(std::ostream& out, const Hypothesis& h);
 };
 
-std::vector<std::vector<std::string>> readData(int n,std::string fileloc);
-
+std::vector<std::vector<std::string>> readData();
+std::vector< std::vector <std ::string> > readAttr();
 #endif

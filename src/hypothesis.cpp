@@ -10,6 +10,10 @@ Hypothesis::Hypothesis(int length, std::string initialize) {
 	els = std::vector<std::string> (length, initialize);
 }
 
+Hypothesis::Hypothesis(int length, std::vector<std::string> initialize) {
+		els = initialize;
+}	
+
 Hypothesis::Hypothesis(const Hypothesis& h) {
 	els = h.els;
 }
@@ -101,7 +105,9 @@ std::ostream& operator <<(std::ostream& out, const Hypothesis& h) {
 
 
 
-std::vector<std::vector<std::string>> readData(int n=18,std::string fileloc="../data/zoo.data"){
+std::vector<std::vector<std::string> > readData(){
+	int n=18;
+	std::string fileloc="../data/zoo.data";
 	//std::string fileloc="../data/zoo.data";
 	std::ifstream fin(fileloc,std::ios::in);
 	std::vector<std::vector<std::string>> data;
@@ -118,18 +124,27 @@ std::vector<std::vector<std::string>> readData(int n=18,std::string fileloc="../
 			std::getline(str,temp,',');
 			att.push_back(temp);
 		}
+		data.push_back(att);
+	}
+	return data;
+}
 
-		/*
-		for(auto i=boollist.begin();i!=boollist.end();i++){
-			att[*i]=(att[*i]=="0"?"false":"true");
+std::vector<std::vector<std::string> > readAttr(){
+	std::string fileloc="../data/attr_values";
+	//std::string fileloc="../data/zoo.data";
+	std::ifstream fin(fileloc,std::ios::in);
+	std::vector<std::vector<std::string> > data;
+	while(!fin.eof()){
+		std::string s;
+		std::vector<std::string> att;
+		fin>>s;
+		std::stringstream str(s);
+		while(str)
+		{
+			std::string temp;
+			std::getline(str,temp,',');
+			att.push_back(temp);	
 		}
-		*/
-		/*
-		for(auto i=att.begin();i!=att.end();i++){
-			std::cout<<*i<<",";
-		}
-		std::cout<<std::endl;
-		*/
 		data.push_back(att);
 	}
 	return data;
