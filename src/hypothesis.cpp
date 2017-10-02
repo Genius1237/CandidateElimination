@@ -12,7 +12,7 @@ Hypothesis::Hypothesis(int length, std::string initialize) {
 
 Hypothesis::Hypothesis(int length, std::vector<std::string> initialize) {
 		els = initialize;
-}	
+}
 
 Hypothesis::Hypothesis(const Hypothesis& h) {
 	els = h.els;
@@ -31,8 +31,8 @@ bool Hypothesis::isSatisfy(std::initializer_list<std::string> els) {
 	return ((*this) >= h);
 }
 
-bool Hypothesis::isSatisfy(std::vector<std::string> els) {
-	if ((this -> els).size() != els.size()) {
+bool Hypothesis::isSatisfy(std::vector<std::string> els) {		// function to return boolean value which
+	if ((this -> els).size() != els.size()) {										// checks if the example satisfies the hypothesis
 		return false;
 	}
 	Hypothesis h;
@@ -60,10 +60,10 @@ Hypothesis Hypothesis::operator =(std::vector<std::string> els) {
 /*
 	Precondition: Length of both hypotheses are equal
 */
-bool operator >=(const Hypothesis& a, const Hypothesis& b) {
+bool operator >=(const Hypothesis& a, const Hypothesis& b) {	//	">=" operator overloaded for ease of comparison
 	for (int i = 0; i < a.els.size(); i++) {
 		if ((a.els[i] != match_all && a.els[i] != match_none &&
-			a.els[i] != b.els[i] && b.els[i] != match_none) || 
+			a.els[i] != b.els[i] && b.els[i] != match_none) ||
 			(a.els[i] == match_none && b.els[i] != match_none)) {
 			return false;
 		}
@@ -71,14 +71,14 @@ bool operator >=(const Hypothesis& a, const Hypothesis& b) {
 	return true;
 }
 
-bool operator >(const Hypothesis& a, const Hypothesis& b) {
+bool operator >(const Hypothesis& a, const Hypothesis& b) {		// ">" operator overloaded for ease of comparison
 	return (a >= b && !(a <= b));
 }
 
-bool operator <=(const Hypothesis& a, const Hypothesis& b) {
+bool operator <=(const Hypothesis& a, const Hypothesis& b) {	//	"<=" operator overloaded for ease of comparison
 	for (int i = 0; i < a.els.size(); i++) {
 		if ((a.els[i] != match_all && a.els[i] != match_none &&
-			a.els[i] != b.els[i] && b.els[i] != match_all) || 
+			a.els[i] != b.els[i] && b.els[i] != match_all) ||
 			(a.els[i] == match_all && b.els[i] != match_all)) {
 			return false;
 		}
@@ -86,15 +86,16 @@ bool operator <=(const Hypothesis& a, const Hypothesis& b) {
 	return true;
 }
 
-bool operator <(const Hypothesis& a, const Hypothesis& b) {
+bool operator <(const Hypothesis& a, const Hypothesis& b) {		// "<" operator overloaded for ease of comparison
 	return (a <= b && !(a >= b));
 }
 
-bool operator ==(const Hypothesis& a, const Hypothesis& b) {
+bool operator ==(const Hypothesis& a, const Hypothesis& b) {	// equality operator overloaded
 	return (a <= b && (a >= b));
 }
 
-std::ostream& operator <<(std::ostream& out, const Hypothesis& h) {
+std::ostream& operator <<(std::ostream& out, const Hypothesis& h) {		// "<<" operator overloading for ease of
+																																			//	printing the hypothesis
 	out << "<";
 	for (int i = 0; i < h.els.size() - 1; i++) {
 		out << h.els[i] << ",";
@@ -105,8 +106,8 @@ std::ostream& operator <<(std::ostream& out, const Hypothesis& h) {
 
 
 
-std::vector<std::vector<std::string> > readData(){
-	int n=18;
+std::vector<std::vector<std::string> > readData(){		// function to read input data and store it in
+	int n=18;																						// a vector of strings
 	std::string fileloc="../data/zoo.data";
 	//std::string fileloc="../data/zoo.data";
 	std::ifstream fin(fileloc,std::ios::in);
@@ -118,7 +119,7 @@ std::vector<std::vector<std::string> > readData(){
 		fin>>s;
 
 		std::stringstream str(s);
-		
+
 		for(int i=0;i<n;i++){
 			std::string temp;
 			std::getline(str,temp,',');
@@ -129,7 +130,7 @@ std::vector<std::vector<std::string> > readData(){
 	return data;
 }
 
-std::vector<std::vector<std::string> > readAttr(){
+std::vector<std::vector<std::string> > readAttr(){		// function to read unique values of each attribute
 	std::string fileloc="../data/attr_values";
 	//std::string fileloc="../data/zoo.data";
 	std::ifstream fin(fileloc,std::ios::in);
@@ -143,7 +144,7 @@ std::vector<std::vector<std::string> > readAttr(){
 		{
 			std::string temp;
 			std::getline(str,temp,',');
-			att.push_back(temp);	
+			att.push_back(temp);
 		}
 		data.push_back(att);
 	}
